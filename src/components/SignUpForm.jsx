@@ -40,10 +40,10 @@ const SignUpForm = ({ basicMode }) => {
       console.log(res, "res");
       setSentVerification(true);
     } catch (e) {
-      setWaitForNetwork(false);
       toast.error(e.response.data.error);
       console.log(e);
     }
+    setWaitForNetwork(false);
   };
 
   const handleInputChange = (e) => {
