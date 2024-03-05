@@ -27,6 +27,7 @@ const SignUpForm = ({ basicMode }) => {
       console.log(res.status);
       toast.success(res.message);
     } catch (e) {
+      toast.error("please enter the correct code")
       console.log(e.message);
     }
   };
