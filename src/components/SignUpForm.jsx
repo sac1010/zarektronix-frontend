@@ -21,14 +21,13 @@ const SignUpForm = ({ basicMode }) => {
 
   const verifyToken = async () => {
     try {
-      const res = axios.get(
+      const res = await axios.get(
         `https://zarektronix-backend.onrender.com/api/user/verify/${token}`
       );
       console.log(res.status);
-      toast.success(res.message);
+      toast.success("account verified");
     } catch (e) {
-      toast.error("please enter the correct code")
-      console.log(e.message);
+      toast.error("please enter the correct code");
     }
   };
   const postData = async () => {
