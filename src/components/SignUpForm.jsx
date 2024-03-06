@@ -9,6 +9,7 @@ const SignUpForm = ({ basicMode }) => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
   const [sentVerification, setSentVerification] = useState(false);
   const [waitForNetwork, setWaitForNetwork] = useState(false);
@@ -20,6 +21,7 @@ const SignUpForm = ({ basicMode }) => {
   }, [basicMode, waitForNetwork]);
 
   const verifyToken = async () => {
+    setLoading(true);
     try {
       const res = await axios.get(
         `https://zarektronix-backend.onrender.com/api/user/verify/${token}`
@@ -29,8 +31,10 @@ const SignUpForm = ({ basicMode }) => {
     } catch (e) {
       toast.error("please enter the correct code");
     }
+    setLoading(false);
   };
   const postData = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(
         "https://zarektronix-backend.onrender.com/api/user/signup",
@@ -43,6 +47,7 @@ const SignUpForm = ({ basicMode }) => {
       console.log(e);
     }
     setWaitForNetwork(false);
+    setLoading(false);
   };
 
   const handleInputChange = (e) => {
@@ -136,6 +141,12 @@ const SignUpForm = ({ basicMode }) => {
         </div>
       )}
       <ToastContainer />
+      {loading && (
+        <div className="fixed w-full h-screen flex items-center justify-center top-0 left-0">
+          <div className="text-md w-full h-screen bg-black opacity-60 fixed top-0 left-0 flex"></div>
+          <div className="font-semibold text-lg animate-pulse">loading</div>
+        </div>
+      )}
     </div>
   );
 };
